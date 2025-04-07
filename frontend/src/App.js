@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import HomePage from './pages/HomePage';
 import CourseListPage from './pages/CourseListPage';
 import DashboardPage from "./pages/DashboardPage";
 import EnrollmentPage from "./pages/EnrollmentPage";
@@ -10,7 +11,7 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<DashboardPage />} />
+        <Route path="/" element={<HomePage />} />
         <Route path="/dashboard" element={<DashboardPage />} />
         <Route path="/courses" element={<CourseListPage />} />
         <Route path="/enroll" element={<EnrollmentPage />} />
