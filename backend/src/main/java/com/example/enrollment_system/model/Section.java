@@ -14,7 +14,7 @@ public class Section {
     private String sectionId;
 
     @Column(nullable = false, unique = true)
-    private int classNumber;
+    private String classNumber;
 
     @ManyToOne
     @JoinColumn(name = "course_code", nullable = false)
