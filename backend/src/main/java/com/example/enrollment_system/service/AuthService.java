@@ -3,12 +3,14 @@ package com.example.enrollment_system.service;
 import com.example.enrollment_system.model.User;
 import com.example.enrollment_system.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import java.util.Date;
 
 @Service
+@Profile("auth")
 public class AuthService {
 
     @Autowired

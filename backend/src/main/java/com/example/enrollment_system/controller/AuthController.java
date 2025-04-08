@@ -3,12 +3,14 @@ package com.example.enrollment_system.controller;
 import com.example.enrollment_system.service.AuthService;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
+@Profile("auth")
 public class AuthController {
 
     @Autowired

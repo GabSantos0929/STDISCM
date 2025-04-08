@@ -1,25 +1,23 @@
-C:\Users\Gab Santos\Documents\DLSU\Assignments\STDISCM\P4\mls\enrollment-system\src\main\java\com\example\enrollment_system\controller\CourseController.java
-C:\Users\Gab Santos\Documents\DLSU\Assignments\STDISCM\P4\mls\enrollment-system\src\main\java\com\example\enrollment_system\controller\EnrollmentController.java
-C:\Users\Gab Santos\Documents\DLSU\Assignments\STDISCM\P4\mls\enrollment-system\src\main\java\com\example\enrollment_system\controller\GradeController.java
-C:\Users\Gab Santos\Documents\DLSU\Assignments\STDISCM\P4\mls\enrollment-system\src\main\java\com\example\enrollment_system\controller\OAuth2LoginController.java
-C:\Users\Gab Santos\Documents\DLSU\Assignments\STDISCM\P4\mls\enrollment-system\src\main\java\com\example\enrollment_system\controller\ReactController.java
-C:\Users\Gab Santos\Documents\DLSU\Assignments\STDISCM\P4\mls\enrollment-system\src\main\java\com\example\enrollment_system\controller\SectionController.java
-C:\Users\Gab Santos\Documents\DLSU\Assignments\STDISCM\P4\mls\enrollment-system\src\main\java\com\example\enrollment_system\controller\SectionScheduleController.java
-C:\Users\Gab Santos\Documents\DLSU\Assignments\STDISCM\P4\mls\enrollment-system\src\main\java\com\example\enrollment_system\controller\UserController.java
-C:\Users\Gab Santos\Documents\DLSU\Assignments\STDISCM\P4\mls\enrollment-system\src\main\java\com\example\enrollment_system\EnrollmentSystemApplication.java
-C:\Users\Gab Santos\Documents\DLSU\Assignments\STDISCM\P4\mls\enrollment-system\src\main\java\com\example\enrollment_system\model\Course.java
-C:\Users\Gab Santos\Documents\DLSU\Assignments\STDISCM\P4\mls\enrollment-system\src\main\java\com\example\enrollment_system\model\Enrollment.java
-C:\Users\Gab Santos\Documents\DLSU\Assignments\STDISCM\P4\mls\enrollment-system\src\main\java\com\example\enrollment_system\model\Grade.java
-C:\Users\Gab Santos\Documents\DLSU\Assignments\STDISCM\P4\mls\enrollment-system\src\main\java\com\example\enrollment_system\model\Section.java
-C:\Users\Gab Santos\Documents\DLSU\Assignments\STDISCM\P4\mls\enrollment-system\src\main\java\com\example\enrollment_system\model\SectionSchedule.java
-C:\Users\Gab Santos\Documents\DLSU\Assignments\STDISCM\P4\mls\enrollment-system\src\main\java\com\example\enrollment_system\model\User.java
-C:\Users\Gab Santos\Documents\DLSU\Assignments\STDISCM\P4\mls\enrollment-system\src\main\java\com\example\enrollment_system\repository\CourseRepository.java
-C:\Users\Gab Santos\Documents\DLSU\Assignments\STDISCM\P4\mls\enrollment-system\src\main\java\com\example\enrollment_system\repository\EnrollmentRepository.java
-C:\Users\Gab Santos\Documents\DLSU\Assignments\STDISCM\P4\mls\enrollment-system\src\main\java\com\example\enrollment_system\repository\GradeRepository.java
-C:\Users\Gab Santos\Documents\DLSU\Assignments\STDISCM\P4\mls\enrollment-system\src\main\java\com\example\enrollment_system\repository\SectionRepository.java
-C:\Users\Gab Santos\Documents\DLSU\Assignments\STDISCM\P4\mls\enrollment-system\src\main\java\com\example\enrollment_system\repository\SectionScheduleRepository.java
-C:\Users\Gab Santos\Documents\DLSU\Assignments\STDISCM\P4\mls\enrollment-system\src\main\java\com\example\enrollment_system\repository\UserRepository.java
-C:\Users\Gab Santos\Documents\DLSU\Assignments\STDISCM\P4\mls\enrollment-system\src\main\java\com\example\enrollment_system\security\JWTAuthenticationFilter.java
-C:\Users\Gab Santos\Documents\DLSU\Assignments\STDISCM\P4\mls\enrollment-system\src\main\java\com\example\enrollment_system\security\JwtTokenUtil.java
-C:\Users\Gab Santos\Documents\DLSU\Assignments\STDISCM\P4\mls\enrollment-system\src\main\java\com\example\enrollment_system\security\SecurityConfig.java
-C:\Users\Gab Santos\Documents\DLSU\Assignments\STDISCM\P4\mls\enrollment-system\src\main\java\com\example\enrollment_system\service\EnrollmentService.java
+C:\Users\CHRIS\Desktop\Acads\stdiscm\REPO-STDICSM\STDISCM\backend\src\main\java\com\example\enrollment_system\controller\AuthController.java
+C:\Users\CHRIS\Desktop\Acads\stdiscm\REPO-STDICSM\STDISCM\backend\src\main\java\com\example\enrollment_system\controller\CourseController.java
+C:\Users\CHRIS\Desktop\Acads\stdiscm\REPO-STDICSM\STDISCM\backend\src\main\java\com\example\enrollment_system\controller\EnrollmentController.java
+C:\Users\CHRIS\Desktop\Acads\stdiscm\REPO-STDICSM\STDISCM\backend\src\main\java\com\example\enrollment_system\controller\GradeController.java
+C:\Users\CHRIS\Desktop\Acads\stdiscm\REPO-STDICSM\STDISCM\backend\src\main\java\com\example\enrollment_system\controller\ReactController.java
+C:\Users\CHRIS\Desktop\Acads\stdiscm\REPO-STDICSM\STDISCM\backend\src\main\java\com\example\enrollment_system\controller\SectionController.java
+C:\Users\CHRIS\Desktop\Acads\stdiscm\REPO-STDICSM\STDISCM\backend\src\main\java\com\example\enrollment_system\controller\SectionScheduleController.java
+C:\Users\CHRIS\Desktop\Acads\stdiscm\REPO-STDICSM\STDISCM\backend\src\main\java\com\example\enrollment_system\controller\UserController.java
+C:\Users\CHRIS\Desktop\Acads\stdiscm\REPO-STDICSM\STDISCM\backend\src\main\java\com\example\enrollment_system\distributed\EnrollmentSystemApplication.java
+C:\Users\CHRIS\Desktop\Acads\stdiscm\REPO-STDICSM\STDISCM\backend\src\main\java\com\example\enrollment_system\model\Course.java
+C:\Users\CHRIS\Desktop\Acads\stdiscm\REPO-STDICSM\STDISCM\backend\src\main\java\com\example\enrollment_system\model\Enrollment.java
+C:\Users\CHRIS\Desktop\Acads\stdiscm\REPO-STDICSM\STDISCM\backend\src\main\java\com\example\enrollment_system\model\Grade.java
+C:\Users\CHRIS\Desktop\Acads\stdiscm\REPO-STDICSM\STDISCM\backend\src\main\java\com\example\enrollment_system\model\Section.java
+C:\Users\CHRIS\Desktop\Acads\stdiscm\REPO-STDICSM\STDISCM\backend\src\main\java\com\example\enrollment_system\model\SectionSchedule.java
+C:\Users\CHRIS\Desktop\Acads\stdiscm\REPO-STDICSM\STDISCM\backend\src\main\java\com\example\enrollment_system\model\User.java
+C:\Users\CHRIS\Desktop\Acads\stdiscm\REPO-STDICSM\STDISCM\backend\src\main\java\com\example\enrollment_system\repository\CourseRepository.java
+C:\Users\CHRIS\Desktop\Acads\stdiscm\REPO-STDICSM\STDISCM\backend\src\main\java\com\example\enrollment_system\repository\EnrollmentRepository.java
+C:\Users\CHRIS\Desktop\Acads\stdiscm\REPO-STDICSM\STDISCM\backend\src\main\java\com\example\enrollment_system\repository\GradeRepository.java
+C:\Users\CHRIS\Desktop\Acads\stdiscm\REPO-STDICSM\STDISCM\backend\src\main\java\com\example\enrollment_system\repository\SectionRepository.java
+C:\Users\CHRIS\Desktop\Acads\stdiscm\REPO-STDICSM\STDISCM\backend\src\main\java\com\example\enrollment_system\repository\SectionScheduleRepository.java
+C:\Users\CHRIS\Desktop\Acads\stdiscm\REPO-STDICSM\STDISCM\backend\src\main\java\com\example\enrollment_system\repository\UserRepository.java
+C:\Users\CHRIS\Desktop\Acads\stdiscm\REPO-STDICSM\STDISCM\backend\src\main\java\com\example\enrollment_system\service\AuthService.java
+C:\Users\CHRIS\Desktop\Acads\stdiscm\REPO-STDICSM\STDISCM\backend\src\main\java\com\example\enrollment_system\service\EnrollmentService.java

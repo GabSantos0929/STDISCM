@@ -30,17 +30,17 @@ public class CourseController {
         List<Course> courses = courseRepository.findAll();
         List<CourseWithSections> courseWithSectionsList = new ArrayList<>();
 
-//        for (Course course : courses) {
-//            List<Section> sections = sectionRepository.findByCourseCourseCode(course.getCourseCode());
-//            List<SectionWithSchedules> sectionWithSchedulesList = new ArrayList<>();
-//
-//            for (Section section : sections) {
-//                List<SectionSchedule> schedules = sectionScheduleRepository.findBySectionSectionId(section.getSectionId());
-//                sectionWithSchedulesList.add(new SectionWithSchedules(section, schedules));
-//            }
-//
-//            courseWithSectionsList.add(new CourseWithSections(course, sectionWithSchedulesList));
-//        }
+        for (Course course : courses) {
+            List<Section> sections = sectionRepository.findByCourseCourseCode(course.getCourseCode());
+            List<SectionWithSchedules> sectionWithSchedulesList = new ArrayList<>();
+
+            for (Section section : sections) {
+                List<SectionSchedule> schedules = sectionScheduleRepository.findBySectionSectionId(section.getSectionId());
+                sectionWithSchedulesList.add(new SectionWithSchedules(section, schedules));
+            }
+
+            courseWithSectionsList.add(new CourseWithSections(course, sectionWithSchedulesList));
+        }
 
         return courseWithSectionsList;
     }
