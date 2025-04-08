@@ -1,4 +1,4 @@
-package com.example.enrollment_system.distributed;
+package com.example.enrollment_system;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

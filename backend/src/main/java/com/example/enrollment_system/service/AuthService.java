@@ -16,6 +16,8 @@ public class AuthService {
     @Autowired
     private UserRepository userRepository;
 
+
+
     public String authenticateUser(String email, String password) {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("User not found"));

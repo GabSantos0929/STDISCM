@@ -4,7 +4,6 @@ com\example\enrollment_system\model\Section$Modality.class
 com\example\enrollment_system\model\Enrollment.class
 com\example\enrollment_system\controller\SectionController.class
 com\example\enrollment_system\controller\AuthController.class
-com\example\enrollment_system\distributed\EnrollmentSystemApplication.class
 com\example\enrollment_system\repository\GradeRepository.class
 com\example\enrollment_system\model\SectionSchedule.class
 com\example\enrollment_system\model\Grade$StudentGrade.class
@@ -26,6 +25,8 @@ com\example\enrollment_system\controller\SectionScheduleController.class
 com\example\enrollment_system\controller\ReactController.class
 com\example\enrollment_system\repository\UserRepository.class
 com\example\enrollment_system\model\Course.class
+com\example\enrollment_system\distributed\CorsConfig.class
+com\example\enrollment_system\EnrollmentSystemApplication.class
 com\example\enrollment_system\model\Grade.class
 com\example\enrollment_system\model\Section.class
 com\example\enrollment_system\service\GradesStudentService.class

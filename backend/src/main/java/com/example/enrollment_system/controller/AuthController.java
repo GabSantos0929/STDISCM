@@ -1,6 +1,7 @@
 package com.example.enrollment_system.controller;
 
 import com.example.enrollment_system.service.AuthService;
+import jakarta.annotation.PostConstruct;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
