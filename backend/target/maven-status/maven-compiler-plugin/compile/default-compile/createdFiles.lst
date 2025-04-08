@@ -13,9 +13,11 @@ com\example\enrollment_system\controller\CourseController$SectionWithSchedules.c
 com\example\enrollment_system\model\SectionSchedule$ScheduleDay.class
 com\example\enrollment_system\repository\EnrollmentRepository.class
 com\example\enrollment_system\repository\SectionRepository.class
+com\example\enrollment_system\service\EnrollmentService.class
 com\example\enrollment_system\repository\SectionScheduleRepository.class
 com\example\enrollment_system\controller\CourseController$CourseWithSections.class
 com\example\enrollment_system\model\User$Role.class
+com\example\enrollment_system\service\CourseService.class
 com\example\enrollment_system\service\AuthService.class
 com\example\enrollment_system\controller\GradeController.class
 com\example\enrollment_system\controller\UserController.class
@@ -26,6 +28,8 @@ com\example\enrollment_system\repository\UserRepository.class
 com\example\enrollment_system\model\Course.class
 com\example\enrollment_system\model\Grade.class
 com\example\enrollment_system\model\Section.class
+com\example\enrollment_system\service\GradesStudentService.class
+com\example\enrollment_system\service\GradesFacultyService.class
 com\example\enrollment_system\model\User.class
 com\example\enrollment_system\model\Section$Status.class
 com\example\enrollment_system\controller\EnrollmentController.class

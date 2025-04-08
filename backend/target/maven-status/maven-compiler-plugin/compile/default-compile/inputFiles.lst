@@ -20,4 +20,7 @@ C:\Users\CHRIS\Desktop\Acads\stdiscm\REPO-STDICSM\STDISCM\backend\src\main\java\
 C:\Users\CHRIS\Desktop\Acads\stdiscm\REPO-STDICSM\STDISCM\backend\src\main\java\com\example\enrollment_system\repository\SectionScheduleRepository.java
 C:\Users\CHRIS\Desktop\Acads\stdiscm\REPO-STDICSM\STDISCM\backend\src\main\java\com\example\enrollment_system\repository\UserRepository.java
 C:\Users\CHRIS\Desktop\Acads\stdiscm\REPO-STDICSM\STDISCM\backend\src\main\java\com\example\enrollment_system\service\AuthService.java
+C:\Users\CHRIS\Desktop\Acads\stdiscm\REPO-STDICSM\STDISCM\backend\src\main\java\com\example\enrollment_system\service\CourseService.java
 C:\Users\CHRIS\Desktop\Acads\stdiscm\REPO-STDICSM\STDISCM\backend\src\main\java\com\example\enrollment_system\service\EnrollmentService.java
+C:\Users\CHRIS\Desktop\Acads\stdiscm\REPO-STDICSM\STDISCM\backend\src\main\java\com\example\enrollment_system\service\GradesFacultyService.java
+C:\Users\CHRIS\Desktop\Acads\stdiscm\REPO-STDICSM\STDISCM\backend\src\main\java\com\example\enrollment_system\service\GradesStudentService.java
