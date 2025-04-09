@@ -31,6 +31,8 @@ public class AuthService {
     private String generateToken(User user) {
         long expirationTime = 1000 * 60 * 60 * (24 * 1); // 1 day
 
+        //userid => query against table => role
+
         return Jwts.builder()
                 .setSubject(user.getEmail())
                 .claim("role", determineRole(user.getEmail()))
