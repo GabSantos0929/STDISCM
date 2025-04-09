@@ -15,7 +15,6 @@ CREATE TYPE user_role AS ENUM ('student', 'faculty');
 CREATE TYPE class_status AS ENUM ('open', 'closed');
 CREATE TYPE class_modality AS ENUM ('F2F', 'HYBRID', 'FULLONLINE');
 CREATE TYPE schedule_day AS ENUM ('M', 'T', 'W', 'H', 'F', 'S');
-CREATE TYPE student_grade AS ENUM ('0.0', '1.0', '1.5', '2.0', '2.5', '3.0', '3.5', '4.0');
 
 -- Create Users Table
 CREATE TABLE users (
@@ -37,7 +36,7 @@ CREATE TABLE courses (
 -- Create Sections Table
 CREATE TABLE sections (
     section_id VARCHAR(5) PRIMARY KEY,
-	class_number INTEGER UNIQUE NOT NULL,
+	class_number VARCHAR(5) UNIQUE NOT NULL,
     course_code VARCHAR(10) REFERENCES courses(course_code) ON DELETE CASCADE,
     status class_status NOT NULL,
 	enrollment_cap INTEGER NOT NULL,
@@ -66,8 +65,8 @@ CREATE TABLE enrollments (
 CREATE TABLE grades (
     grade_id SERIAL PRIMARY KEY,
     student_id INTEGER REFERENCES users(user_id) ON DELETE CASCADE,
-    section_id VARCHAR(5) REFERENCES sections(section_id) ON DELETE CASCADE,
-    grade student_grade NOT NULL
+	course_code VARCHAR(10) REFERENCES courses(course_code) ON DELETE CASCADE,
+    grade NUMERIC(3, 1) NOT NULL
 );
 
 -- Populate database here
@@ -85,9 +84,9 @@ VALUES
 
 INSERT INTO sections (section_id, class_number, course_code, status, enrollment_cap, enrolled, remarks) 
 VALUES 
-('S12', 4355, 'STDISCM', 'open', 45, 43, 'HYBRID'),
-('S15', 6255, 'CSSECDV', 'closed', 30, 30, 'HYBRID'),
-('S11', 1234, 'CSOPESY', 'open', 45, 0, 'HYBRID');
+('S12', '4355', 'STDISCM', 'open', 45, 43, 'HYBRID'),
+('S15', '6255', 'CSSECDV', 'closed', 30, 30, 'HYBRID'),
+('S11', '1234', 'CSOPESY', 'open', 45, 0, 'HYBRID');
 
 INSERT INTO section_schedule (section_id, day, start_time, end_time, room) 
 VALUES 
@@ -105,9 +104,10 @@ VALUES
 (12112345, 'S15'),
 (12112345, 'S11');
 
-INSERT INTO grades (student_id, section_id, grade)  
+INSERT INTO grades (student_id, course_code, grade)  
 VALUES 
-(12012345, 'S12', '3.0'),
-(12012345, 'S15', '3.5'),
-(12112345, 'S15', '2.0'),
-(12112345, 'S11', '2.5');
+(12012345, 'STDISCM', 3.0),
+(12012345, 'CSSECDV', 3.5),
+(12112345, 'CSSECDV', 2.0),
+(12112345, 'CSOPESY', 2.5),
+(12136921, 'CSSECDV', 4.0);
