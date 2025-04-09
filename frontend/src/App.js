@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import HomePage from './pages/HomePage';
-import CourseListPage from './pages/CourseListPage';
+import HomePage from "./pages/HomePage";
+import CourseListPage from "./pages/CourseListPage";
 import DashboardPage from "./pages/DashboardPage";
 import EnrollmentPage from "./pages/EnrollmentPage";
 import GradesPage from "./pages/GradesPage";

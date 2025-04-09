@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
+import { handleLogout } from "../auth/Logout";
 
 function CourseListPage() {
   const [courses, setCourses] = useState([]);
   const [filteredCourses, setFilteredCourses] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchCourses = async () => {
@@ -35,8 +38,6 @@ function CourseListPage() {
   return (
     <div>
       <h2>Available Courses</h2>
-
-      {/* Search Bar */}
       <div style={{ marginBottom: "20px" }}>
         <input
           type="text"
@@ -50,7 +51,6 @@ function CourseListPage() {
         </button>
       </div>
 
-      {/* Course List Table */}
       <table border="1" style={{ width: '100%', borderCollapse: 'collapse' }}>
         <thead>
           <tr>
@@ -99,6 +99,8 @@ function CourseListPage() {
           )}
         </tbody>
       </table>
+      <br /><br />
+      <button onClick={() => handleLogout(navigate)} style={{ padding: "8px", cursor: "pointer" }}>Logout</button>
     </div>
   );
 }

@@ -1,12 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { jwtDecode } from 'jwt-decode';
+import { handleLogout } from "../auth/Logout";
 
 function EnrollmentPage() {
   const [classNbr, setClassNbr] = useState("");
+  const [email, setEmail] = useState(null);
   const [section, setSection] = useState(null);
   const [error, setError] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [cart, setCart] = useState([]);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem('authToken');
+        
+    if (!token) {
+      navigate("/login");
+    }
+    const decodedToken = jwtDecode(token);
+    setEmail(decodedToken.sub); 
+  }, []);
 
   const handleSearch = async () => {
     setError("");
@@ -18,7 +33,7 @@ function EnrollmentPage() {
     }
 
     try {
-      const response = await axios.get(`http://localhost:3000/sections/${classNbr}`);
+      const response = await axios.get(`http://localhost:8080/sections/class/${classNbr}`);
 
       if (response.data) {
         setSection(response.data);
@@ -30,44 +45,72 @@ function EnrollmentPage() {
     }
   };
 
-  const handleAddToCart = () => {
+  const handleAddToCart = async () => {
     if (!section) {
       setError("No section selected.");
       return;
     }
-
+  
     if (section.status === "closed") {
       setError("Cannot add to cart. The class is closed.");
       return;
     }
 
-    setCart((prevCart) => {
-      if (!prevCart.some((item) => item.classNumber === section.classNumber)) {
-        return [...prevCart, section];
-      }
-      return prevCart;
-    });
-
-    setSuccessMessage(`Added ${section.course.courseCode} - ${section.sectionId} to cart`);
-    setSection(null);
-    setClassNbr("");
+    if (cart.some((item) => item.classNumber === section.classNumber)) {
+      setError("This class is already in your cart.");
+      return;
+    }
+  
+    try {
+      await axios.post("http://localhost:8080/cart/add", {
+        email,
+        classNumber: section.classNumber,
+      });
+  
+      setCart((prevCart) => {
+        if (!prevCart.some((item) => item.classNumber === section.classNumber)) {
+          return [...prevCart, section];
+        }
+        return prevCart;
+      });
+  
+      setSuccessMessage(`Added ${section.course.courseCode} - ${section.sectionId} to cart`);
+      setSection(null);
+      setClassNbr("");
+    } catch (err) {
+      setError("Error adding to cart. Please try again.");
+    }
   };
+  
+  const handleRemoveFromCart = (classNumber) => {
+    try {
+      axios.post("http://localhost:8080/cart/remove", {
+        email,
+        classNumber,
+      });
+  
+      setCart((prevCart) => prevCart.filter((item) => item.classNumber !== classNumber));
+      setSuccessMessage(`Removed class ${classNumber} from cart`);
+    } catch (err) {
+      setError("Error removing from cart. Please try again.");
+    }
+  };  
 
   const handleEnroll = async () => {
     if (cart.length === 0) {
       setError("Your cart is empty. Add sections to your cart first.");
       return;
     }
+    cart.forEach((item) => {
+      item.email = email;
+    });
 
     try {
-      const enrollments = cart.map((section) =>
-        axios.post("http://localhost:3000/enroll", { classNbr: section.classNumber })
-      );
-      await Promise.all(enrollments);
-
+      await axios.post("http://localhost:8080/enrollments", cart);
       setSuccessMessage("Successfully enrolled in all courses in your cart!");
       setCart([]);
     } catch (err) {
+      console.error(err);
       setError("Enrollment failed. Please try again.");
     }
   };
@@ -75,8 +118,6 @@ function EnrollmentPage() {
   return (
     <div>
       <h2>Course Enrollment</h2>
-
-      {/* Class Nbr Input */}
       <input
         type="text"
         value={classNbr}
@@ -88,10 +129,8 @@ function EnrollmentPage() {
         Search
       </button>
 
-      {/* Display Error Message */}
       {error && <p style={{ color: "red" }}>{error}</p>}
 
-      {/* Show Section Details */}
       {section && (
         <div style={{ marginTop: "20px", border: "1px solid #ddd", padding: "15px", width: "300px" }}>
           <p><strong>Course Code:</strong> {section.course.courseCode}</p>
@@ -100,21 +139,17 @@ function EnrollmentPage() {
           <p><strong>Status:</strong> {section.status}</p>
           <p><strong>Enrollment Cap:</strong> {section.enrollmentCap}</p>
           <p><strong>Enrolled:</strong> {section.enrolled}</p>
-
-          {section.status === "open" && (
-            <div>
-              <button
-                onClick={handleAddToCart}
-                style={{ padding: "8px 12px", cursor: "pointer", marginTop: "10px" }}
-              >
-                Add to Cart
-              </button>
-            </div>
-          )}
+          <div>
+            <button
+              onClick={handleAddToCart}
+              style={{ padding: "8px 12px", cursor: "pointer", marginTop: "10px" }}
+            >
+              Add to Cart
+            </button>
+          </div>
         </div>
       )}
 
-      {/* Display Cart */}
       <div style={{ marginTop: "20px" }}>
         <h3>Your Cart</h3>
         {cart.length === 0 ? (
@@ -124,12 +159,17 @@ function EnrollmentPage() {
             {cart.map((section, index) => (
               <li key={index}>
                 {section.course.courseCode} - {section.sectionId}
+                <button
+                  onClick={() => handleRemoveFromCart(section.classNumber)}
+                  style={{ marginLeft: "10px" }}
+                >
+                  Remove
+                </button>
               </li>
             ))}
           </ul>
         )}
 
-        {/* Enroll Button */}
         {cart.length > 0 && (
           <button
             onClick={handleEnroll}
@@ -140,8 +180,9 @@ function EnrollmentPage() {
         )}
       </div>
 
-      {/* Success Message */}
       {successMessage && <p style={{ color: "green", marginTop: "15px" }}>{successMessage}</p>}
+      <br /><br />
+      <button onClick={() => handleLogout(navigate)} style={{ padding: "8px", cursor: "pointer" }}>Logout</button>
     </div>
   );
 }

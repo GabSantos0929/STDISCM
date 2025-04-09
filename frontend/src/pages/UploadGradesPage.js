@@ -1,158 +1,97 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
+import { handleLogout } from "../auth/Logout";
 
 function UploadGradesPage() {
-  const [courses, setCourses] = useState([]);
-  const [sections, setSections] = useState([]);
-  const [students, setStudents] = useState([]);
-  const [selectedCourse, setSelectedCourse] = useState('');
-  const [selectedSection, setSelectedSection] = useState('');
+  const [course, setCourse] = useState('');
+  const [section, setSection] = useState('');
   const [studentId, setStudentId] = useState('');
   const [grade, setGrade] = useState('');
   const [message, setMessage] = useState('');
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
 
   const validGrades = ["0.0", "1.0", "1.5", "2.0", "2.5", "3.0", "3.5", "4.0"];
 
-  // Fetch courses when the component loads
-  useEffect(() => {
-    const fetchCourses = async () => {
-      try {
-        const response = await axios.get('http://localhost:3000/courses'); // Replace with actual API
-        setCourses(response.data);
-      } catch (error) {
-        console.error('Error fetching courses:', error);
-      }
-    };
-    fetchCourses();
-  }, []);
-
-  // Fetch sections for a selected course
-  useEffect(() => {
-    if (selectedCourse) {
-      const fetchSections = async () => {
-        try {
-          const response = await axios.get(`http://localhost:3000/courses/${selectedCourse}/sections`); // Replace with actual API
-          setSections(response.data);
-        } catch (error) {
-          console.error('Error fetching sections:', error);
-        }
-      };
-      fetchSections();
-    }
-  }, [selectedCourse]);
-
-  // Fetch students for a selected section
-  useEffect(() => {
-    if (selectedSection) {
-      const fetchStudents = async () => {
-        try {
-          const response = await axios.get(`http://localhost:3000/sections/${selectedSection}/students`); // Replace with actual API
-          setStudents(response.data);
-        } catch (error) {
-          console.error('Error fetching students:', error);
-        }
-      };
-      fetchStudents();
-    }
-  }, [selectedSection]);
-
-  // Handle grade submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    if (!validGrades.includes(grade)) {
-      setMessage('Invalid grade selection.');
-      return;
-    }
+    setMessage('');
+    setError('');
 
     try {
-      const response = await axios.post('http://localhost:3000/grades', {
-        course: selectedCourse,
-        section: selectedSection,
+      const response = await axios.post('http://localhost:8080/grades', {
+        course,
+        section,
         studentId,
         grade,
       });
       setMessage('Grade uploaded successfully!');
-    } catch (error) {
-      setMessage('Error uploading grade: ' + error.message);
+    } catch (err) {
+      if (err.response?.data) {
+        setError(err.response.data.message || 'An error occurred.');
+      } else {
+        setError('Unable to connect to the server.');
+      }
     }
   };
 
   return (
     <div>
       <h2>Upload Grades</h2>
-
       <form onSubmit={handleSubmit}>
-        {/* Course Selection */}
-        <label>Course: </label>
-        <select
-          value={selectedCourse}
-          onChange={(e) => setSelectedCourse(e.target.value)}
+        <label>Course Code: </label>
+        <input
+          type="text"
+          value={course}
+          onChange={(e) => setCourse(e.target.value)}
+          placeholder="e.g., STDISCM"
           required
-        >
-          <option value="">Select Course</option>
-          {courses.map((course) => (
-            <option key={course.courseCode} value={course.courseCode}>
-              {course.courseCode} - {course.courseName}
-            </option>
-          ))}
-        </select>
+        />
         <br />
 
-        {/* Section Selection */}
-        <label>Section: </label>
-        <select
-          value={selectedSection}
-          onChange={(e) => setSelectedSection(e.target.value)}
+        <label>Section ID: </label>
+        <input
+          type="text"
+          value={section}
+          onChange={(e) => setSection(e.target.value)}
+          placeholder="e.g., S11"
           required
-        >
-          <option value="">Select Section</option>
-          {sections.map((section) => (
-            <option key={section.sectionId} value={section.sectionId}>
-              {section.sectionId} - {section.room}
-            </option>
-          ))}
-        </select>
+        />
         <br />
 
-        {/* Student Selection */}
         <label>Student ID: </label>
-        <select
+        <input
+          type="text"
           value={studentId}
           onChange={(e) => setStudentId(e.target.value)}
+          placeholder="e.g., 12112345"
+          required
+        />
+        <br />
+
+        <label>Grade: </label>
+        <select
+          value={grade}
+          onChange={(e) => setGrade(e.target.value)}
           required
         >
-          <option value="">Select Student</option>
-          {students.map((student) => (
-            <option key={student.studentId} value={student.studentId}>
-              {student.studentId} - {student.name}
+          <option value="">Select Grade</option>
+          {validGrades.map((g) => (
+            <option key={g} value={g}>
+              {g}
             </option>
           ))}
         </select>
         <br />
 
-        {/* Grade Input */}
-        <label>Grade: </label>
-          <select
-            value={grade}
-            onChange={(e) => setGrade(e.target.value)}
-            required
-          >
-            <option value="">Select Grade</option>
-            {validGrades.map((g) => (
-              <option key={g} value={g}>
-                {g}
-              </option>
-            ))}
-          </select>
-        <br />
-
-        {/* Submit Button */}
         <button type="submit">Submit Grade</button>
       </form>
 
-      {/* Message after submission */}
       {message && <p>{message}</p>}
+      {error && <p style={{ color: 'red' }}>{error}</p>}
+      <br /><br />
+      <button onClick={() => handleLogout(navigate)} style={{ padding: "8px", cursor: "pointer" }}>Logout</button>
     </div>
   );
 }

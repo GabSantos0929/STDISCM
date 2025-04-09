@@ -1,13 +1,30 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { jwtDecode } from 'jwt-decode';
+import { handleLogout } from "../auth/Logout";
 
 function GradesPage() {
   const [grades, setGrades] = useState([]);
+  const navigate = useNavigate();
   
   useEffect(() => {
+    const token = localStorage.getItem('authToken');
+    
+    if (!token) {
+      navigate("/login");
+    }
+    const decodedToken = jwtDecode(token);
+    const userEmail = decodedToken.sub;
+
     const fetchGrades = async () => {
-      const response = await fetch("/grades/12112345");
-      const data = await response.json();
-      setGrades(data);
+      const userResponse = await fetch(`http://localhost:8080/users/email/${userEmail}`);
+      const userData = await userResponse.json();
+      
+      if (userData && userData.userId) {
+        const gradesResponse = await fetch(`http://localhost:8080/grades/${userData.userId}`);
+        const gradesData = await gradesResponse.json();
+        setGrades(gradesData);
+      }
     };
 
     fetchGrades();
@@ -29,10 +46,10 @@ function GradesPage() {
           {grades.length > 0 ? (
             grades.map((grade, index) => (
               <tr key={index}>
-                <td>{grade.section.course.courseCode}</td>
-                <td>{grade.section.course.courseName}</td>
-                <td>{grade.grade}</td>
-                <td>{grade.section.course.units}</td>
+                <td>{grade.course.courseCode}</td>
+                <td>{grade.course.courseName}</td>
+                <td>{(grade.grade).toFixed(1)}</td>
+                <td>{grade.course.units}</td>
               </tr>
             ))
           ) : (
@@ -42,6 +59,8 @@ function GradesPage() {
           )}
         </tbody>
       </table>
+      <br /><br />
+      <button onClick={() => handleLogout(navigate)} style={{ padding: "8px", cursor: "pointer" }}>Logout</button>
     </div>
   );
 }

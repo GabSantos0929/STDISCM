@@ -9,7 +9,7 @@ function HomePage() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:8082/auth/login', {
+      const response = await fetch('http://localhost:8080/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -22,14 +22,13 @@ function HomePage() {
 
       if (response.ok) {
         const data = await response.json();
-        const token = data.token; // Assuming the token is returned in the response
+        const token = data.token;
 
-        // Store token and navigate to dashboard
         localStorage.setItem('authToken', token);
         navigate("/dashboard");
       } else {
         const errorMessage = await response.text();
-        alert(errorMessage); // Show error message
+        alert(errorMessage);
       }
     } catch (error) {
       alert("An error occurred during login");
@@ -39,8 +38,6 @@ function HomePage() {
   return (
     <div>
       <h1>Welcome to MLS</h1>
-
-      {/* Login Form */}
       <div>
         <h2>Login</h2>
         <form onSubmit={handleLogin}>
@@ -65,13 +62,6 @@ function HomePage() {
           </button>
         </form>
       </div>
-
-      {/* Navigation Links */}
-      <nav style={{ marginTop: "20px" }}>
-        <a href="/courses" style={{ display: "block", margin: "10px 0", textDecoration: "none", color: "blue" }}>
-          View Course Offerings
-        </a>
-      </nav>
     </div>
   );
 }
