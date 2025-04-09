@@ -9,6 +9,7 @@ import com.example.enrollment_system.repository.EnrollmentRepository;
 import com.example.enrollment_system.repository.SectionRepository;
 import com.example.enrollment_system.repository.UserRepository;
 
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.ResponseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +20,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/enrollments")
+@Profile("enrollment")
 public class EnrollmentController {
 
     @Autowired

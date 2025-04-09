@@ -7,6 +7,7 @@ import com.example.enrollment_system.repository.CourseRepository;
 import com.example.enrollment_system.repository.SectionRepository;
 import com.example.enrollment_system.repository.SectionScheduleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
+@Profile("course")
 public class CourseController {
 
     @Autowired

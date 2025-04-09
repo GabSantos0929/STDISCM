@@ -2,6 +2,7 @@ package com.example.enrollment_system.controller;
 
 import com.example.enrollment_system.model.User;
 import com.example.enrollment_system.repository.UserRepository;
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,6 +11,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/users")
+@Profile("enrollment")
 public class UserController {
     private final UserRepository userRepository;
 

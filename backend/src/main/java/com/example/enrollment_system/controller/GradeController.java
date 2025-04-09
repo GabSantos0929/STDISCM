@@ -7,6 +7,7 @@ import com.example.enrollment_system.repository.GradeRepository;
 import com.example.enrollment_system.repository.UserRepository;
 import com.example.enrollment_system.repository.CourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpStatus;
@@ -18,7 +19,10 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/grades")
+@Profile("grades_student")
 public class GradeController {
+
+    //TODO: Separate upload and get grade, use grades_faculty as profile
 
     @Autowired
     private GradeRepository gradeRepository;

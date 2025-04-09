@@ -5,6 +5,7 @@ import com.example.enrollment_system.model.Section;
 import com.example.enrollment_system.repository.CartRepository;
 import com.example.enrollment_system.repository.SectionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +14,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/cart")
+@Profile("enrollment")
 public class CartController {
 
     @Autowired
