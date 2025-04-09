@@ -20,7 +20,7 @@ function UploadGradesPage() {
     setError('');
 
     try {
-      const response = await axios.post('http://localhost:8080/grades', {
+      const response = await axios.post('http://localhost:8084/grades', {
         course,
         section,
         studentId,

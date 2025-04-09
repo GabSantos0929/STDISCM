@@ -33,7 +33,7 @@ function EnrollmentPage() {
     }
 
     try {
-      const response = await axios.get(`http://localhost:8080/sections/class/${classNbr}`);
+      const response = await axios.get(`http://localhost:8081/sections/class/${classNbr}`);
 
       if (response.data) {
         setSection(response.data);
@@ -62,7 +62,7 @@ function EnrollmentPage() {
     }
   
     try {
-      await axios.post("http://localhost:8080/cart/add", {
+      await axios.post("http://localhost:8081/cart/add", {
         email,
         classNumber: section.classNumber,
       });
@@ -84,7 +84,7 @@ function EnrollmentPage() {
   
   const handleRemoveFromCart = (classNumber) => {
     try {
-      axios.post("http://localhost:8080/cart/remove", {
+      axios.post("http://localhost:8081/cart/remove", {
         email,
         classNumber,
       });
@@ -106,7 +106,7 @@ function EnrollmentPage() {
     });
 
     try {
-      await axios.post("http://localhost:8080/enrollments", cart);
+      await axios.post("http://localhost:8081/enrollments", cart);
       setSuccessMessage("Successfully enrolled in all courses in your cart!");
       setCart([]);
     } catch (err) {

@@ -17,11 +17,11 @@ function GradesPage() {
     const userEmail = decodedToken.sub;
 
     const fetchGrades = async () => {
-      const userResponse = await fetch(`http://localhost:8080/users/email/${userEmail}`);
+      const userResponse = await fetch(`http://localhost:8085/users/email/${userEmail}`);
       const userData = await userResponse.json();
       
       if (userData && userData.userId) {
-        const gradesResponse = await fetch(`http://localhost:8080/grades/${userData.userId}`);
+        const gradesResponse = await fetch(`http://localhost:8085/grades/${userData.userId}`);
         const gradesData = await gradesResponse.json();
         setGrades(gradesData);
       }
