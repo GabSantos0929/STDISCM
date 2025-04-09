@@ -17,16 +17,20 @@ public class SectionController {
         this.sectionRepository = sectionRepository;
     }
 
-    // Get all sections
     @GetMapping
     public List<Section> getAllSections() {
         return sectionRepository.findAll();
     }
 
-    // Get section by ID
     @GetMapping("/{sectionId}")
     public ResponseEntity<Section> getSectionById(@PathVariable String sectionId) {
         Optional<Section> section = sectionRepository.findById(sectionId);
+        return section.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/class/{classNumber}")
+    public ResponseEntity<Section> getSectionByClassNumber(@PathVariable String classNumber) {
+        Optional<Section> section = sectionRepository.findByClassNumber(classNumber);
         return section.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 }

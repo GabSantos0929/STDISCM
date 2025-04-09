@@ -2,6 +2,7 @@ package com.example.enrollment_system.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "grades")
@@ -19,14 +20,9 @@ public class Grade {
     private User student;
 
     @ManyToOne
-    @JoinColumn(name = "section_id", nullable = false)
-    private Section section;
+    @JoinColumn(name = "course_code", nullable = false)
+    private Course course;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private StudentGrade grade;
-
-    public enum StudentGrade {
-        _0_0, _1_0, _1_5, _2_0, _2_5, _3_0, _3_5, _4_0;
-    }
+    @Column(nullable = false, precision = 3, scale = 1)
+    private BigDecimal grade;
 }
