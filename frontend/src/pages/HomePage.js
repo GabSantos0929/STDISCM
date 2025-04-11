@@ -9,7 +9,7 @@ function HomePage() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://192.168.25.101:8081/auth/login', {
+      const response = await fetch('http://192.168.68.138:8081/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -31,7 +31,7 @@ function HomePage() {
         alert(errorMessage);
       }
     } catch (error) {
-      alert("An error occurred during login");
+      alert(`An error occurred during login: ${error.message}`);
     }
   };
 

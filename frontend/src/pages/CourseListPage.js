@@ -12,7 +12,7 @@ function CourseListPage() {
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        const response = await axios.get('http://localhost:8082/courses');
+        const response = await axios.get('http://192.168.68.119:8082/courses');
         setCourses(response.data);
         setFilteredCourses([]);
       } catch (error) {

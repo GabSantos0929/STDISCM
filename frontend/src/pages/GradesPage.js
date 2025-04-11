@@ -19,7 +19,7 @@ function GradesPage() {
 
     const fetchGrades = async () => {
       try {
-        const response = await axios.get(`http://localhost:8084/student/grades/${userId}`);
+        const response = await axios.get(`http://192.168.68.119:8084/student/grades/${userId}`);
         setGrades(response.data);
       } catch (error) {
         alert(`Error fetching grades: ${error.message}. Redirecting back to the dashboard.`);

@@ -20,7 +20,7 @@ function UploadGradesPage() {
     setError('');
 
     try {
-      const response = await axios.post('http://localhost:8085/faculty/grades', {
+      const response = await axios.post('http://192.168.68.119:8085/faculty/grades', {
         course,
         section,
         studentId,
