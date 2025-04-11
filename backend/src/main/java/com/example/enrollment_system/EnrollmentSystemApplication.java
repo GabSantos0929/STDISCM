@@ -11,29 +11,29 @@ public class EnrollmentSystemApplication {
 			String serviceType = args[0];
 			switch (serviceType) {
 				case "1":
-					System.setProperty("spring.profiles.active", "enrollment");
-					System.setProperty("server.port", "8081");
-					System.out.println("Enrollment Active");
-					break;
-				case "2":
 					System.setProperty("spring.profiles.active", "auth");
-					System.setProperty("server.port", "8082");
+					System.setProperty("server.port", "8081");
 					System.out.println("Auth Active");
 					break;
-				case "3":
+				case "2":
 					System.setProperty("spring.profiles.active", "course");
+					System.setProperty("server.port", "8082");
+					System.out.println("Course Active");
+					break;
+				case "3":
+					System.setProperty("spring.profiles.active", "enrollment");
 					System.setProperty("server.port", "8083");
-					System.out.println("Service Active");
+					System.out.println("Enrollment Active");
 					break;
 				case "4":
-					System.setProperty("spring.profiles.active", "grades_faculty");
+					System.setProperty("spring.profiles.active", "grades_student");
 					System.setProperty("server.port", "8084");
-					System.out.println("Grades (Faculty) Active");
+					System.out.println("Grades (Student) Active");
 					break;
 				case "5":
-					System.setProperty("spring.profiles.active", "grades_student");
+					System.setProperty("spring.profiles.active", "grades_faculty");
 					System.setProperty("server.port", "8085");
-					System.out.println("Grades (Student) Active");
+					System.out.println("Grades (Faculty) Active");
 					break;
 				// Add other cases for different services
 			}

@@ -10,9 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.ArrayList;
+import lombok.Data;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @Profile("course")
@@ -29,24 +29,18 @@ public class CourseController {
 
     @GetMapping("/courses")
     public List<CourseWithSections> getAllCourses() {
-        List<Course> courses = courseRepository.findAll();
-        List<CourseWithSections> courseWithSectionsList = new ArrayList<>();
-
-        for (Course course : courses) {
-            List<Section> sections = sectionRepository.findByCourseCourseCode(course.getCourseCode());
-            List<SectionWithSchedules> sectionWithSchedulesList = new ArrayList<>();
-
-            for (Section section : sections) {
-                List<SectionSchedule> schedules = sectionScheduleRepository.findBySectionSectionId(section.getSectionId());
-                sectionWithSchedulesList.add(new SectionWithSchedules(section, schedules));
-            }
-
-            courseWithSectionsList.add(new CourseWithSections(course, sectionWithSchedulesList));
-        }
-
-        return courseWithSectionsList;
+        return courseRepository.findAll().stream()
+                .map(course -> new CourseWithSections(course, getSectionsWithSchedules(course)))
+                .collect(Collectors.toList());
     }
 
+    private List<SectionWithSchedules> getSectionsWithSchedules(Course course) {
+        return sectionRepository.findByCourseCourseCode(course.getCourseCode()).stream()
+                .map(section -> new SectionWithSchedules(section, sectionScheduleRepository.findBySectionSectionId(section.getSectionId())))
+                .collect(Collectors.toList());
+    }
+
+    @Data
     public static class CourseWithSections {
         private Course course;
         private List<SectionWithSchedules> sections;
@@ -55,46 +49,15 @@ public class CourseController {
             this.course = course;
             this.sections = sections;
         }
-
-        public Course getCourse() {
-            return course;
-        }
-
-        public void setCourse(Course course) {
-            this.course = course;
-        }
-
-        public List<SectionWithSchedules> getSections() {
-            return sections;
-        }
-
-        public void setSections(List<SectionWithSchedules> sections) {
-            this.sections = sections;
-        }
     }
 
+    @Data
     public static class SectionWithSchedules {
         private Section section;
         private List<SectionSchedule> schedules;
 
         public SectionWithSchedules(Section section, List<SectionSchedule> schedules) {
             this.section = section;
-            this.schedules = schedules;
-        }
-
-        public Section getSection() {
-            return section;
-        }
-
-        public void setSection(Section section) {
-            this.section = section;
-        }
-
-        public List<SectionSchedule> getSchedules() {
-            return schedules;
-        }
-
-        public void setSchedules(List<SectionSchedule> schedules) {
             this.schedules = schedules;
         }
     }

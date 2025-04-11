@@ -8,8 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -36,13 +34,7 @@ public class CartController {
 
     @PostMapping("/remove")
     public ResponseEntity<String> removeFromCart(@RequestBody Cart cartItem) {
-        cartRepository.deleteByEmailAndClassNumber(cartItem.getEmail(), cartItem.getClassNumber());
+        cartRepository.deleteByIdAndClassNumber(cartItem.getUserId(), cartItem.getClassNumber());
         return ResponseEntity.ok("Removed from cart successfully.");
-    }
-
-    @GetMapping("/{email}")
-    public ResponseEntity<List<Cart>> getCart(@PathVariable String email) {
-        List<Cart> cartItems = cartRepository.findByEmail(email);
-        return ResponseEntity.ok(cartItems);
     }
 }

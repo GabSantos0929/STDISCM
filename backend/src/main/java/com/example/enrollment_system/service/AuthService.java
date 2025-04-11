@@ -3,14 +3,14 @@ package com.example.enrollment_system.service;
 import com.example.enrollment_system.model.User;
 import com.example.enrollment_system.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import java.security.SecureRandom;
 import java.util.Date;
+import java.util.Base64;
 
 @Service
-@Profile("auth")
 public class AuthService {
 
     @Autowired
@@ -26,33 +26,23 @@ public class AuthService {
         return generateToken(user);
     }
 
-    private final String SECRET_KEY = "super-secret-key";
+    private final String SECRET_KEY = generateSecretKey();
 
-    private String generateToken(User user) {
-        long expirationTime = 1000 * 60 * 60 * (24 * 1); // 1 day
-
-        //userid => query against table => role
-
-        return Jwts.builder()
-                .setSubject(user.getEmail())
-                .claim("role", determineRole(user.getEmail()))
-                .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + expirationTime))
-                .signWith(SignatureAlgorithm.HS256, SECRET_KEY)
-                .compact();
+    private static String generateSecretKey() {
+        byte[] keyBytes = new byte[32];
+        new SecureRandom().nextBytes(keyBytes);
+        return Base64.getEncoder().encodeToString(keyBytes);
     }
 
-    public String determineRole(String email) {
-        if (email.endsWith("@dlsu.edu.ph")) {
-            String localPart = email.substring(0, email.indexOf("@"));
+    private String generateToken(User user) {
+        long expirationTime = 1000 * 60 * 60 * (24 * 1);
+        byte[] decodedSecret = Base64.getDecoder().decode(SECRET_KEY);
 
-            if (localPart.contains("_")) {
-                return "Student";
-            }
-            else if (localPart.contains(".")) {
-                return "Professor";
-            }
-        }
-        return "Guest";
+        return Jwts.builder()
+                .setSubject(String.valueOf(user.getUserId()))
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + expirationTime))
+                .signWith(SignatureAlgorithm.HS256, decodedSecret)
+                .compact();
     }
 }

@@ -2,33 +2,20 @@ package com.example.enrollment_system.controller;
 
 import com.example.enrollment_system.model.Section;
 import com.example.enrollment_system.repository.SectionRepository;
-import org.springframework.context.annotation.Profile;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 
-import java.util.List;
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/sections")
 @Profile("enrollment")
 public class SectionController {
-    private final SectionRepository sectionRepository;
 
-    public SectionController(SectionRepository sectionRepository) {
-        this.sectionRepository = sectionRepository;
-    }
-
-    @GetMapping
-    public List<Section> getAllSections() {
-        return sectionRepository.findAll();
-    }
-
-    @GetMapping("/{sectionId}")
-    public ResponseEntity<Section> getSectionById(@PathVariable String sectionId) {
-        Optional<Section> section = sectionRepository.findById(sectionId);
-        return section.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
-    }
+    @Autowired
+    private SectionRepository sectionRepository;
 
     @GetMapping("/class/{classNumber}")
     public ResponseEntity<Section> getSectionByClassNumber(@PathVariable String classNumber) {

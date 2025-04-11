@@ -9,9 +9,9 @@ import com.example.enrollment_system.repository.EnrollmentRepository;
 import com.example.enrollment_system.repository.SectionRepository;
 import com.example.enrollment_system.repository.UserRepository;
 
-import org.springframework.context.annotation.Profile;
 import org.springframework.http.ResponseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -46,10 +46,10 @@ public class EnrollmentController {
             }
             Section section = sectionOpt.get();
 
-            Optional<User> userOpt = userRepository.findByEmail(cartItem.getEmail());
+            Optional<User> userOpt = userRepository.findById(cartItem.getUserId());
 
             if (userOpt.isEmpty()) {
-                return ResponseEntity.status(400).body("User not found: " + cartItem.getEmail());
+                return ResponseEntity.status(400).body("User not found: " + cartItem.getUserId());
             }
             User user = userOpt.get();
             
@@ -59,7 +59,7 @@ public class EnrollmentController {
             enrollmentRepository.save(enrollment);
             section.setEnrolled(section.getEnrolled() + 1);
             sectionRepository.save(section);
-            cartRepository.deleteByEmailAndClassNumber(cartItem.getEmail(), cartItem.getClassNumber());
+            cartRepository.deleteByIdAndClassNumber(cartItem.getUserId(), cartItem.getClassNumber());
         }
         return ResponseEntity.ok("Successfully enrolled in selected courses.");
     }
