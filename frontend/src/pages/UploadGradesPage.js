@@ -20,19 +20,16 @@ function UploadGradesPage() {
     setError('');
 
     try {
-      const response = await axios.post('http://localhost:8084/grades', {
+      const response = await axios.post('http://localhost:8085/faculty/grades', {
         course,
         section,
         studentId,
         grade,
       });
       setMessage('Grade uploaded successfully!');
-    } catch (err) {
-      if (err.response?.data) {
-        setError(err.response.data.message || 'An error occurred.');
-      } else {
-        setError('Unable to connect to the server.');
-      }
+    } catch (error) {
+      alert(`Error uploading grades: ${error.message}. Redirecting back to the dashboard.`);
+      navigate("/dashboard");
     }
   };
 

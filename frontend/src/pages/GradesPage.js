@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { jwtDecode } from 'jwt-decode';
 import { handleLogout } from "../auth/Logout";
@@ -11,22 +12,20 @@ function GradesPage() {
     const token = localStorage.getItem('authToken');
     
     if (!token) {
-      navigate("/login");
+      navigate("/");
     }
     const decodedToken = jwtDecode(token);
-    const userEmail = decodedToken.sub;
+    const userId = parseInt(decodedToken.sub, 10);
 
     const fetchGrades = async () => {
-      const userResponse = await fetch(`http://localhost:8085/users/email/${userEmail}`);
-      const userData = await userResponse.json();
-      
-      if (userData && userData.userId) {
-        const gradesResponse = await fetch(`http://localhost:8085/grades/${userData.userId}`);
-        const gradesData = await gradesResponse.json();
-        setGrades(gradesData);
+      try {
+        const response = await axios.get(`http://localhost:8084/student/grades/${userId}`);
+        setGrades(response.data);
+      } catch (error) {
+        alert(`Error fetching grades: ${error.message}. Redirecting back to the dashboard.`);
+        navigate("/dashboard");
       }
     };
-
     fetchGrades();
   }, []);
 

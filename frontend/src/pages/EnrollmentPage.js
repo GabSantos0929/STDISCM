@@ -6,7 +6,7 @@ import { handleLogout } from "../auth/Logout";
 
 function EnrollmentPage() {
   const [classNbr, setClassNbr] = useState("");
-  const [email, setEmail] = useState(null);
+  const [userId, setUserId] = useState(null);
   const [section, setSection] = useState(null);
   const [error, setError] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
@@ -17,10 +17,10 @@ function EnrollmentPage() {
     const token = localStorage.getItem('authToken');
         
     if (!token) {
-      navigate("/login");
+      navigate("/");
     }
     const decodedToken = jwtDecode(token);
-    setEmail(decodedToken.sub); 
+    setUserId(parseInt(decodedToken.sub, 10)); 
   }, []);
 
   const handleSearch = async () => {
@@ -33,15 +33,16 @@ function EnrollmentPage() {
     }
 
     try {
-      const response = await axios.get(`http://localhost:8081/sections/class/${classNbr}`);
+      const response = await axios.get(`http://192.168.25.102:8083/sections/class/${classNbr}`);
 
       if (response.data) {
         setSection(response.data);
       } else {
         setError("Class not found.");
       }
-    } catch (err) {
-      setError("Error fetching class details. Please try again.");
+    } catch (error) {
+      alert(`Error fetching class details: ${error.message}. Redirecting back to the dashboard.`);
+      navigate("/dashboard");
     }
   };
 
@@ -62,8 +63,8 @@ function EnrollmentPage() {
     }
   
     try {
-      await axios.post("http://localhost:8081/cart/add", {
-        email,
+      await axios.post("http://192.168.25.102:8083/cart/add", {
+        userId,
         classNumber: section.classNumber,
       });
   
@@ -77,22 +78,24 @@ function EnrollmentPage() {
       setSuccessMessage(`Added ${section.course.courseCode} - ${section.sectionId} to cart`);
       setSection(null);
       setClassNbr("");
-    } catch (err) {
-      setError("Error adding to cart. Please try again.");
+    } catch (error) {
+      alert(`Error adding to cart: ${error.message}. Redirecting back to the dashboard.`);
+      navigate("/dashboard");
     }
   };
   
   const handleRemoveFromCart = (classNumber) => {
     try {
-      axios.post("http://localhost:8081/cart/remove", {
-        email,
+      axios.post("http://192.168.25.102:8083/cart/remove", {
+        userId,
         classNumber,
       });
   
       setCart((prevCart) => prevCart.filter((item) => item.classNumber !== classNumber));
       setSuccessMessage(`Removed class ${classNumber} from cart`);
-    } catch (err) {
-      setError("Error removing from cart. Please try again.");
+    } catch (error) {
+      alert(`Error removing from cart: ${error.message}. Redirecting back to the dashboard.`);
+      navigate("/dashboard");
     }
   };  
 
@@ -102,16 +105,16 @@ function EnrollmentPage() {
       return;
     }
     cart.forEach((item) => {
-      item.email = email;
+      item.userId = userId;
     });
 
     try {
-      await axios.post("http://localhost:8081/enrollments", cart);
+      await axios.post("http://192.168.25.102:8083/enrollments", cart);
       setSuccessMessage("Successfully enrolled in all courses in your cart!");
       setCart([]);
-    } catch (err) {
-      console.error(err);
-      setError("Enrollment failed. Please try again.");
+    } catch (error) {
+      alert(`Enrollment failed: ${error.message}. Redirecting back to the dashboard.`);
+      navigate("/dashboard");
     }
   };
 
