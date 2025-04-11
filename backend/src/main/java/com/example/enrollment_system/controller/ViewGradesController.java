@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/grades/student")
+@RequestMapping("/student/grades")
 @Profile("grades_student")
 public class ViewGradesController {
 

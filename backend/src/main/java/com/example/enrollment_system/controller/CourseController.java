@@ -9,12 +9,14 @@ import com.example.enrollment_system.repository.SectionScheduleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import lombok.Data;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
+@RequestMapping("/courses")
 @Profile("course")
 public class CourseController {
 
@@ -27,7 +29,7 @@ public class CourseController {
     @Autowired
     private SectionScheduleRepository sectionScheduleRepository;
 
-    @GetMapping("/courses")
+    @GetMapping
     public List<CourseWithSections> getAllCourses() {
         return courseRepository.findAll().stream()
                 .map(course -> new CourseWithSections(course, getSectionsWithSchedules(course)))

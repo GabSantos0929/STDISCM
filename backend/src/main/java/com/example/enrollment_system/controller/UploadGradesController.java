@@ -17,7 +17,7 @@ import java.math.BigDecimal;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/grades/faculty")
+@RequestMapping("/faculty/grades")
 @Profile("grades_faculty")
 public class UploadGradesController {
 
