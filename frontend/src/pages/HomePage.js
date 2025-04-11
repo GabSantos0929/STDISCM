@@ -9,7 +9,7 @@ function HomePage() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://192.168.68.138:8081/auth/login', {
+      const response = await fetch('http://192.168.68.119:8081/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -20,7 +20,7 @@ function DashboardPage() {
       const userId = decodedToken.sub;
 
       try {
-        const response = await axios.get(`http://192.168.68.138:8081/users/${userId}`, {
+        const response = await axios.get(`http://192.168.68.119:8081/users/${userId}`, {
           headers: {
             Authorization: `Bearer ${token}`
           }

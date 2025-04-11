@@ -33,7 +33,7 @@ function EnrollmentPage() {
     }
 
     try {
-      const response = await axios.get(`http://192.168.25.102:8083/sections/class/${classNbr}`);
+      const response = await axios.get(`http://192.168.68.119:8083/sections/class/${classNbr}`);
 
       if (response.data) {
         setSection(response.data);
@@ -63,7 +63,7 @@ function EnrollmentPage() {
     }
   
     try {
-      await axios.post("http://192.168.25.102:8083/cart/add", {
+      await axios.post("http://192.168.68.119:8083/cart/add", {
         userId,
         classNumber: section.classNumber,
       });
@@ -86,7 +86,7 @@ function EnrollmentPage() {
   
   const handleRemoveFromCart = (classNumber) => {
     try {
-      axios.post("http://192.168.25.102:8083/cart/remove", {
+      axios.post("http://192.168.68.119:8083/cart/remove", {
         userId,
         classNumber,
       });
@@ -109,7 +109,7 @@ function EnrollmentPage() {
     });
 
     try {
-      await axios.post("http://192.168.25.102:8083/enrollments", cart);
+      await axios.post("http://192.168.68.119:8083/enrollments", cart);
       setSuccessMessage("Successfully enrolled in all courses in your cart!");
       setCart([]);
     } catch (error) {
