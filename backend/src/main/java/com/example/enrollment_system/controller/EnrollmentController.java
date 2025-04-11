@@ -4,10 +4,10 @@ import com.example.enrollment_system.model.Cart;
 import com.example.enrollment_system.model.Enrollment;
 import com.example.enrollment_system.model.Section;
 import com.example.enrollment_system.model.User;
-import com.example.enrollment_system.repository.CartRepository;
 import com.example.enrollment_system.repository.EnrollmentRepository;
 import com.example.enrollment_system.repository.SectionRepository;
 import com.example.enrollment_system.repository.UserRepository;
+import com.example.enrollment_system.service.CartService;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ import java.util.Optional;
 public class EnrollmentController {
 
     @Autowired
-    private CartRepository cartRepository;
+    private CartService cartService;
 
     @Autowired
     private SectionRepository sectionRepository;
@@ -40,26 +40,27 @@ public class EnrollmentController {
     public ResponseEntity<String> enrollInCourses(@RequestBody List<Cart> cartItems) {
         for (Cart cartItem : cartItems) {
             Optional<Section> sectionOpt = sectionRepository.findByClassNumber(cartItem.getClassNumber());
-
             if (sectionOpt.isEmpty()) {
-                return ResponseEntity.status(400).body("Section not found: " + cartItem.getClassNumber());
+                return ResponseEntity.badRequest().body("Section not found: " + cartItem.getClassNumber());
             }
-            Section section = sectionOpt.get();
 
             Optional<User> userOpt = userRepository.findById(cartItem.getUserId());
-
             if (userOpt.isEmpty()) {
-                return ResponseEntity.status(400).body("User not found: " + cartItem.getUserId());
+                return ResponseEntity.badRequest().body("User not found: " + cartItem.getUserId());
             }
+
+            Section section = sectionOpt.get();
             User user = userOpt.get();
-            
+
             Enrollment enrollment = new Enrollment();
             enrollment.setStudent(user);
             enrollment.setSection(section);
             enrollmentRepository.save(enrollment);
+
             section.setEnrolled(section.getEnrolled() + 1);
             sectionRepository.save(section);
-            cartRepository.deleteByIdAndClassNumber(cartItem.getUserId(), cartItem.getClassNumber());
+
+            cartService.removeFromCart(cartItem.getUserId(), cartItem.getClassNumber());
         }
         return ResponseEntity.ok("Successfully enrolled in selected courses.");
     }
