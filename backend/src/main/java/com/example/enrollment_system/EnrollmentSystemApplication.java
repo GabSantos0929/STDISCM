@@ -59,6 +59,7 @@ public class EnrollmentSystemApplication {
             if (activeProfile != null && serverPort != null) {
                  System.setProperty("spring.profiles.active", activeProfile);
                  System.setProperty("server.port", serverPort);
+				 System.setProperty("server.address", "0.0.0.0");
                  log.info("Profile '{}' activated, port set to {} via command line argument.", activeProfile, serverPort);
             }
 

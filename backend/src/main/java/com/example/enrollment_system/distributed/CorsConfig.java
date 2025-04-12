@@ -15,7 +15,10 @@ public class CorsConfig {
         CorsConfiguration config = new CorsConfiguration();
 
         // Allow requests from your frontend origin
-        config.addAllowedOrigin("http://192.168.68.119:3000");
+   
+        config.addAllowedOriginPattern("*"); 
+        config.addAllowedHeader("*");
+        
 
         // Allow common HTTP methods
         config.addAllowedMethod("GET");
@@ -24,11 +27,7 @@ public class CorsConfig {
         config.addAllowedMethod("DELETE");
         config.addAllowedMethod("OPTIONS");
 
-        // Allow common headers
-        config.addAllowedHeader("*");
-
-        // Allow credentials (cookies, authorization headers)
-        config.setAllowCredentials(true);
+    
 
         source.registerCorsConfiguration("/**", config);
         return new CorsFilter(source);
